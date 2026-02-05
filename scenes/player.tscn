@@ -1,17 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0n5vv6yst7a5"]
 
 [ext_resource type="Script" uid="uid://y8jgknnsfxqf" path="res://scripts/player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://darbbqfgp6hvh" path="res://icon.svg" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://c14kqev1ppylg" path="res://assets/pautplayer.png" id="2_g2els"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
-size = Vector2(128, 128)
+size = Vector2(95, 125)
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-26.5, -6.5)
 shape = SubResource("RectangleShape2D_hqtel")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("2_i3pqv")
+[node name="Pautplayer" type="Sprite2D" parent="."]
+position = Vector2(1.5258789e-05, 1.0000305)
+scale = Vector2(0.2353823, 0.27894002)
+texture = ExtResource("2_g2els")
