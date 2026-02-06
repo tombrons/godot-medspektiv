@@ -33,14 +33,14 @@ func _physics_process(delta: float) -> void:
 		plr_speed = 600
 		dash_going = false
 		
-		print(dash_going)
+		
 		
 	
 
 		
 		
 
-	print(move_type)
+	
 	#collision with enemy
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	get_tree().paused = true
