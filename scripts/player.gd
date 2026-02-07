@@ -26,23 +26,29 @@ func _physics_process(delta: float) -> void:
 	
 	if move_type == "run":
 		plr_speed = 800
-		
+	
+	#dash
 	if move_type == "dash":
 		plr_speed = 1200
 		await get_tree().create_timer(0.25).timeout
 		plr_speed = 600
 		dash_going = false
-		
-		
-		
 	
-
-		
-		
-
+	#you can attack when you press attack
+	if Input.is_action_pressed("attack"):
+		%weapon_slota.monitoring = true
+	else:
+		%weapon_slota.monitoring = false
 	
-	#collision with enemy
+	%weapon_slota.look_at(get_global_mouse_position())
+	
+	#collision with enemys
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	get_tree().paused = true
 	
-	
+
+#Attacks
+func _on_weapon_slota_body_entered(body: Node2D) -> void:
+		if body.has_method("dead"):
+			body.dead()
+			await get_tree().create_timer(0.5).timeout

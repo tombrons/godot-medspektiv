@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0n5vv6yst7a5"]
+[gd_scene load_steps=6 format=3 uid="uid://d0n5vv6yst7a5"]
 
 [ext_resource type="Script" uid="uid://y8jgknnsfxqf" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://c14kqev1ppylg" path="res://assets/pautplayer.png" id="2_g2els"]
@@ -8,6 +8,9 @@ size = Vector2(95, 125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(64, 125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
+size = Vector2(110, 161)
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 0
@@ -37,5 +40,25 @@ wait_time = 0.25
 [node name="dash_Cooldown" type="Timer" parent="."]
 unique_name_in_owner = true
 
+[node name="weapon_slota" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="weapon_slota"]
+position = Vector2(77, -5.5)
+shape = SubResource("RectangleShape2D_qhqgy")
+
+[node name="pivot" type="Marker2D" parent="weapon_slota"]
+
+[node name="ColorRect" type="ColorRect" parent="weapon_slota"]
+offset_left = 22.0
+offset_top = -87.0
+offset_right = 133.0
+offset_bottom = 75.0
+color = Color(0, 0, 0, 0.3372549)
+
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="dash_startup" to="." method="_on_dash_startup_timeout"]
+[connection signal="body_entered" from="weapon_slota" to="." method="_on_weapon_slota_body_entered"]
