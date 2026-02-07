@@ -8,6 +8,21 @@ var weapon_mode = "sword"
 
 
 func _physics_process(delta: float) -> void:
+	
+	#weapons modes 
+	
+	if Input.is_action_just_pressed("sword"):
+		weapon_mode = "sword"
+		print(weapon_mode)
+	if Input.is_action_just_pressed("bow"):
+		weapon_mode = "bow"
+		print(weapon_mode)
+		
+	if weapon_mode == "sword":
+		%Bow.visible = false
+	elif weapon_mode == "bow":
+		%Bow.visible = true
+	
 	#movement
 	var direction = Input.get_vector("left","right","up","down")
 	velocity = direction * plr_speed
@@ -38,15 +53,23 @@ func _physics_process(delta: float) -> void:
 	
 	#you can attack when you press attack
 	if Input.is_action_pressed("attack"):
-		%weapon_slota.monitoring = true
-		await get_tree().create_timer(0.5).timeout
-		%weapon_slota.monitoring = false
+		if weapon_mode == "sword":
+			%weapon_slota.monitoring = true
+			await get_tree().create_timer(0.5).timeout
+			%weapon_slota.monitoring = false
+		if weapon_mode == "bow":
+			const BULLET = preload("res://scenes/bullet.tscn")
+			var new_bullet = BULLET.instantiate()
+			new_bullet.global_position = %"shooting point".global_position
+			new_bullet.global_rotation = %"shooting point".global_rotation
+			%"shooting point".add_child(new_bullet)
 	else:
 		%weapon_slota.monitoring = false
 	
 	%weapon_slota.look_at(get_global_mouse_position())
-	
+	%Bow.look_at(get_global_mouse_position())
 	%TextureProgressBar.value = health
+	
 	
 	#collision with enemys
 func _on_hitbox_body_entered(body: Node2D) -> void:
