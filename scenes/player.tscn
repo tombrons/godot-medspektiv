@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0n5vv6yst7a5"]
+[gd_scene load_steps=9 format=3 uid="uid://d0n5vv6yst7a5"]
 
 [ext_resource type="Script" uid="uid://y8jgknnsfxqf" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://c14kqev1ppylg" path="res://assets/pautplayer.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://fdxujjw8gw34" path="res://assets/progress under.png" id="3_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://ci8hf2vst4t6e" path="res://assets/health bar.png" id="4_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://qyfm0mf2edq1" path="res://assets/progress fill.png" id="5_fjrip"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
 size = Vector2(95, 125)
@@ -15,6 +18,19 @@ size = Vector2(110, 161)
 [node name="player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_onrkg")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -1225.0
+offset_top = -742.0
+offset_right = -708.0
+offset_bottom = -353.0
+min_value = -1.0
+max_value = 5.0
+value = 4.0
+texture_under = ExtResource("3_qlg0r")
+texture_over = ExtResource("4_tuyoq")
+texture_progress = ExtResource("5_fjrip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-26.5, -6.5)

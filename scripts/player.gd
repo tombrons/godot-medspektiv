@@ -3,6 +3,8 @@ extends CharacterBody2D
 var plr_speed = 600
 var move_type = "walk"
 var dash_going = false
+var health = 4
+
 
 
 func _physics_process(delta: float) -> void:
@@ -42,10 +44,19 @@ func _physics_process(delta: float) -> void:
 	
 	%weapon_slota.look_at(get_global_mouse_position())
 	
+	%TextureProgressBar.value = health
+	
 	#collision with enemys
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	get_tree().paused = true
+	hit()
+	await  get_tree().create_timer(1).timeout
 	
+
+func hit():
+	print(health)
+	health -= 1 
+	if health <= 0 :
+		get_tree().paused = true
 
 #Attacks
 func _on_weapon_slota_body_entered(body: Node2D) -> void:
