@@ -4,7 +4,7 @@ var plr_speed = 600
 var move_type = "walk"
 var dash_going = false
 var health = 4
-
+var weapon_mode = "sword"
 
 
 func _physics_process(delta: float) -> void:
@@ -39,6 +39,8 @@ func _physics_process(delta: float) -> void:
 	#you can attack when you press attack
 	if Input.is_action_pressed("attack"):
 		%weapon_slota.monitoring = true
+		await get_tree().create_timer(0.5).timeout
+		%weapon_slota.monitoring = false
 	else:
 		%weapon_slota.monitoring = false
 	
