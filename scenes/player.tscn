@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0n5vv6yst7a5"]
+[gd_scene load_steps=11 format=3 uid="uid://d0n5vv6yst7a5"]
 
 [ext_resource type="Script" uid="uid://y8jgknnsfxqf" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://c14kqev1ppylg" path="res://assets/pautplayer.png" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://fdxujjw8gw34" path="res://assets/progress under.png" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://ci8hf2vst4t6e" path="res://assets/health bar.png" id="4_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://qyfm0mf2edq1" path="res://assets/progress fill.png" id="5_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cva4uon3h8p6h" path="res://assets/bow.png" id="6_tuyoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
 size = Vector2(95, 125)
@@ -14,6 +15,9 @@ size = Vector2(64, 125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
 size = Vector2(110, 161)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
+size = Vector2(46, 61)
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 0
@@ -74,6 +78,26 @@ offset_top = -87.0
 offset_right = 133.0
 offset_bottom = 75.0
 color = Color(0, 0, 0, 0.3372549)
+
+[node name="Bow" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 0
+
+[node name="Bow" type="Sprite2D" parent="Bow"]
+position = Vector2(69, 46)
+scale = Vector2(0.4475, 0.42)
+texture = ExtResource("6_tuyoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bow"]
+position = Vector2(45, 1.5)
+shape = SubResource("RectangleShape2D_tuyoq")
+
+[node name="pivot" type="Marker2D" parent="Bow"]
+
+[node name="shooting point" type="Marker2D" parent="Bow"]
+unique_name_in_owner = true
+position = Vector2(66, -2)
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="dash_startup" to="." method="_on_dash_startup_timeout"]
