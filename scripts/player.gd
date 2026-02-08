@@ -5,7 +5,7 @@ var move_type = "walk"
 var dash_going = false
 var health = 4
 var weapon_mode = "sword"
-
+var attacking = false
 
 func _physics_process(delta: float) -> void:
 	
@@ -53,16 +53,24 @@ func _physics_process(delta: float) -> void:
 	
 	#you can attack when you press attack
 	if Input.is_action_pressed("attack"):
-		if weapon_mode == "sword":
-			%weapon_slota.monitoring = true
-			await get_tree().create_timer(0.5).timeout
-			%weapon_slota.monitoring = false
-		if weapon_mode == "bow":
-			const BULLET = preload("res://scenes/bullet.tscn")
-			var new_bullet = BULLET.instantiate()
-			new_bullet.global_position = %"shooting point".global_position
-			new_bullet.global_rotation = %"shooting point".global_rotation
-			%"shooting point".add_child(new_bullet)
+		if attacking == false:
+			if weapon_mode == "sword":
+				%weapon_slota.monitoring = true
+				attacking = true
+				await get_tree().create_timer(0.5).timeout
+				%weapon_slota.monitoring = false
+				attacking = false
+			if weapon_mode == "bow":
+				attacking = true 
+				const BULLET = preload("res://scenes/bullet.tscn")
+				var new_bullet = BULLET.instantiate()
+				get_node("/root/game").add_child(new_bullet)
+				new_bullet.global_position = %"shooting point".global_position
+				new_bullet.global_rotation = %"shooting point".global_rotation
+				await get_tree().create_timer(1).timeout
+				attacking = false
+			
+			
 	else:
 		%weapon_slota.monitoring = false
 	
@@ -85,6 +93,6 @@ func hit():
 
 #Attacks
 func _on_weapon_slota_body_entered(body: Node2D) -> void:
-		if body.has_method("dead"):
-			body.dead()
-			await get_tree().create_timer(0.5).timeout
+	if body.has_method("dead"):
+		body.dead()
+		await get_tree().create_timer(0.5).timeout

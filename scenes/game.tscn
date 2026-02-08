@@ -26,6 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.35843942, 0.5289166, 0.2873517, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="house" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(845, 30)
