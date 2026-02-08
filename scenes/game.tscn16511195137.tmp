@@ -26,7 +26,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.35843942, 0.5289166, 0.2873517, 1)
-metadata/_edit_use_anchors_ = true
 
 [node name="house" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(845, 30)
@@ -35,7 +34,7 @@ position = Vector2(845, 30)
 position = Vector2(-513, -63)
 
 [node name="castle2" parent="." instance=ExtResource("4_iywne")]
-position = Vector2(1612, -958)
+position = Vector2(1646, -992)
 
 [node name="enemy" parent="." instance=ExtResource("5_iywne")]
 position = Vector2(281, -276)

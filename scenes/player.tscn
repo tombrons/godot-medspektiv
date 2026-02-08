@@ -1,13 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0n5vv6yst7a5"]
+[gd_scene load_steps=11 format=3 uid="uid://d0n5vv6yst7a5"]
 
 [ext_resource type="Script" uid="uid://y8jgknnsfxqf" path="res://scripts/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://c14kqev1ppylg" path="res://assets/pautplayer.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://fdxujjw8gw34" path="res://assets/progress under.png" id="3_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://ci8hf2vst4t6e" path="res://assets/health bar.png" id="4_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://qyfm0mf2edq1" path="res://assets/progress fill.png" id="5_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cva4uon3h8p6h" path="res://assets/bow.png" id="6_tuyoq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
 size = Vector2(95, 125)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(64, 125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhqgy"]
+size = Vector2(110, 161)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
+size = Vector2(46, 61)
+
 [node name="player" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_onrkg")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -1225.0
+offset_top = -742.0
+offset_right = -708.0
+offset_bottom = -353.0
+min_value = -1.0
+max_value = 5.0
+value = 4.0
+texture_under = ExtResource("3_qlg0r")
+texture_over = ExtResource("4_tuyoq")
+texture_progress = ExtResource("5_fjrip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-26.5, -6.5)
@@ -17,3 +44,61 @@ shape = SubResource("RectangleShape2D_hqtel")
 position = Vector2(1.5258789e-05, 1.0000305)
 scale = Vector2(0.2353823, 0.27894002)
 texture = ExtResource("2_g2els")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(-12, -6.5)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="dash_startup" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.25
+
+[node name="dash_Cooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="weapon_slota" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="weapon_slota"]
+position = Vector2(77, -5.5)
+shape = SubResource("RectangleShape2D_qhqgy")
+
+[node name="pivot" type="Marker2D" parent="weapon_slota"]
+
+[node name="ColorRect" type="ColorRect" parent="weapon_slota"]
+offset_left = 22.0
+offset_top = -87.0
+offset_right = 133.0
+offset_bottom = 75.0
+color = Color(0, 0, 0, 0.3372549)
+
+[node name="Bow" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 0
+
+[node name="Bow" type="Sprite2D" parent="Bow"]
+position = Vector2(69, 46)
+scale = Vector2(0.4475, 0.42)
+texture = ExtResource("6_tuyoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bow"]
+position = Vector2(45, 1.5)
+shape = SubResource("RectangleShape2D_tuyoq")
+
+[node name="pivot" type="Marker2D" parent="Bow"]
+
+[node name="shooting point" type="Marker2D" parent="Bow"]
+unique_name_in_owner = true
+position = Vector2(66, -2)
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="dash_startup" to="." method="_on_dash_startup_timeout"]
+[connection signal="body_entered" from="weapon_slota" to="." method="_on_weapon_slota_body_entered"]
