@@ -69,8 +69,6 @@ func _physics_process(delta: float) -> void:
 				new_bullet.global_rotation = %"shooting point".global_rotation
 				await get_tree().create_timer(1).timeout
 				attacking = false
-			
-			
 	else:
 		%weapon_slota.monitoring = false
 	

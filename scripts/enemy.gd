@@ -12,3 +12,9 @@ func _physics_process(delta: float) -> void:
 
 func dead():
 	queue_free()
+
+func take_damage():
+	print("damaged")
+	health -= 1
+	if health <= 0:
+		queue_free() 
